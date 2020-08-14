@@ -4,8 +4,18 @@
 # Log file
 *.log
 
-# BlueJ files
-*.ctxt
+# Eclipse files
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
