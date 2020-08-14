@@ -1,2 +1,2 @@
 # portfolio
-Recruiters, hiring managers, and other fans -- look here!
+Recruiters, hiring managers, and other curious coders -- look here!
