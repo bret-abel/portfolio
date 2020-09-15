@@ -1,6 +1,9 @@
-# CS 475 Homework 5
+
 # Bret Abel
 # 3/30/2020
+
+This is a homework assignment from an Operating Systems course I took in undergrad.
+The write-up I did about the program for my professor is below:
 
 This program performs sequential matrix multiplication if given 2 command line arguments,
 or if given 3 arguments it will do the same thing but in a multi-threaded fashion.
