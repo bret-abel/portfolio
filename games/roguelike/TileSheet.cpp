@@ -34,7 +34,7 @@ bool TileSheet::load(const string& img, const string& tileList)
 	int x, y, w, h;
 	int numFrames;
 	string key;
-	vector<sf::IntRect> values;
+	vector<sf::IntRect> frames;
 	
 	// read tile name, coordinates, number of
 	// animation frames (if applicable) from text file
@@ -61,8 +61,9 @@ bool TileSheet::load(const string& img, const string& tileList)
 			y = stoi(lineTokens[2]);
 			w = stoi(lineTokens[3]);
 			h = stoi(lineTokens[4]);
-			values.push_back(sf::IntRect(x, y, w, h));
-			tileRects.emplace(key, values);
+			frames.push_back(sf::IntRect(x, y, w, h));
+			subtextureNames.push_back(key);
+			tileRects.push_back(frames);
 		}
 		// sprite has animation frames
 		else if (lineTokens.size() == 6)
@@ -73,16 +74,17 @@ bool TileSheet::load(const string& img, const string& tileList)
 			w = stoi(lineTokens[3]);
 			h = stoi(lineTokens[4]);
 			numFrames = stoi(lineTokens[5]);
+			subtextureNames.push_back(key);
 			for (int frameCount = 0; frameCount < numFrames; frameCount++)
 			{
-				values.push_back(sf::IntRect(x + w * frameCount, y, w, h));
+				frames.push_back(sf::IntRect(x + w * frameCount, y, w, h));
 			}
-			tileRects.emplace(key, values);
+			tileRects.push_back(frames);
 			
 		}
 		// clear vectors for next iteration
 		lineTokens.clear();
-		values.clear();
+		frames.clear();
 	}
 	return true;
 }
@@ -92,12 +94,29 @@ bool TileSheet::load(const string& img, const string& tileList)
    @param name Name of the art asset to get.
    @return vector containing all the rects for a given sprite from the tilesheet
 */
-vector<sf::IntRect> TileSheet::getRects(const string& name)
+vector<sf::IntRect> TileSheet::getRects(int name)
 {
 	return tileRects[name];
+}
+
+vector<sf::IntRect> TileSheet::getRects(TileName name)
+{
+	int index = static_cast<int>(name);
+	return tileRects[index];
 }
 
 sf::Texture TileSheet::getTilesetTexture()
 {
 	return tileset;
+}
+
+string TileSheet::getSubtextureName(TileName name)
+{
+	return subtextureNames[(int) name];
+}
+
+void TileSheet::printNames()
+{
+	for (int i = 0; i < subtextureNames.size(); i++)
+		std::cout << i << ": " + subtextureNames[i] << std::endl;
 }
